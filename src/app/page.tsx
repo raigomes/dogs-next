@@ -1,3 +1,9 @@
+import Feed from "@/components/Feed";
+
 export default function Home() {
-  return <h1 className="title">Home</h1>;
+  return (
+    <section className="container mainContainer">
+      <Feed />
+    </section>
+  );
 }
