@@ -12,7 +12,7 @@ export const spectral_font = Spectral({
   weight: ["700"],
   subsets: ["latin"],
   display: "swap",
-  variable: "--spectral_font",
+  variable: "--spectral-font",
 });
 
 export default function RootLayout({

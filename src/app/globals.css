@@ -7,7 +7,7 @@ body {
   margin: 0;
   color: #333;
   --type-first: Helvetica, Arial, sans-serif;
-  --type-second: var(--spectral_font), Georgia;
+  --type-second: var(--spectral-font), Georgia;
   font-family: var(--type-first);
 }
 
