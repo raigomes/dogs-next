@@ -1,11 +1,12 @@
 import React from "react";
 
-import styles from "./Feed.module.css";
 import Image from "next/image";
+import { getPhotos } from "@/actions/photo";
+
+import styles from "./Feed.module.css";
 
 export default async function Feed() {
-  const response = await fetch("https://dogsapi.origamid.dev/json/api/photo");
-  const photos = response.ok ? await response.json() : null;
+  const photos = await getPhotos();
 
   if (!photos) return null;
 
