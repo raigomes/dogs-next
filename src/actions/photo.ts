@@ -1,7 +1,7 @@
 import { BASE_URL } from "./api";
 import { requestJSON } from "./request";
 
-interface IPhoto {
+export interface IPhoto {
   id: number;
   author: string;
   title: string;
@@ -12,13 +12,13 @@ interface IPhoto {
   acessos: number;
 }
 
-type PhotoQuery = {
+export interface IPhotoQuery {
   total?: number;
   page?: number;
   user?: number;
-};
+}
 
-export const PHOTO_GET = (query: PhotoQuery = {}) => {
+export const PHOTO_GET = (query: IPhotoQuery = {}) => {
   const params = new URLSearchParams();
 
   if (query.total !== undefined) params.set("_total", String(query.total));
@@ -61,6 +61,6 @@ export const PHOTO_DELETE = (token: string, id: string | number) =>
     },
   }) as const;
 
-export async function getPhotos(query: PhotoQuery = {}) {
+export async function getPhotos(query: IPhotoQuery = {}) {
   return await requestJSON<IPhoto[]>(PHOTO_GET(query));
 }
