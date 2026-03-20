@@ -10,10 +10,10 @@ import FeedLoading from "./FeedLoading";
 import styles from "./Feed.module.css";
 
 interface FeedProps {
-  initialPhotos: IPhoto[];
+  initialPhotos?: IPhoto[];
 }
 
-export default function Feed({ initialPhotos }: FeedProps) {
+export default function Feed({ initialPhotos = [] }: FeedProps) {
   const [photos, setPhotos] = React.useState<IPhoto[]>(initialPhotos);
   const [page, setPage] = React.useState(2);
   const [hasMore, setHasMore] = React.useState(true);
