@@ -71,6 +71,18 @@
   padding: 2rem calc(4rem + 15px) 2rem 4rem;
 }
 
+.loadingWrapper {
+  display: flex;
+  height: 100px;
+  margin: 1rem auto;
+}
+
+.loadingWrapper p {
+  text-align: center;
+  margin: auto;
+  color: #888;
+}
+
 @media (max-width: 64rem) {
   .modal {
     padding: 2rem calc(2rem + 15px) 2rem 2rem;
