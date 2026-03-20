@@ -1,10 +1,11 @@
 "use client";
 
 import React from "react";
-import { useFormStatus } from "react-dom";
+import { useFormState, useFormStatus } from "react-dom";
 
 import Input from "@/components/Input";
 import Button from "@/components/Button";
+import { login } from "@/actions/auth";
 
 const SubmitButton = () => {
   const { pending } = useFormStatus();
@@ -19,13 +20,20 @@ const SubmitButton = () => {
 export default function LoginForm(
   props: React.FormHTMLAttributes<HTMLFormElement>,
 ) {
+  const [state, formAction] = useFormState(login, {
+    error: "",
+  });
+
   return (
-    <form
-      {...props}
-      //   action={handleLogin}
-    >
+    <form action={formAction} {...props}>
       <Input label="Usuário" type="text" name="username" />
       <Input label="Senha" type="password" name="password" />
+
+      {state.error && (
+        <p style={{ color: "rgb(255, 51, 17)", margin: "1rem 0px" }}>
+          {state.error}
+        </p>
+      )}
 
       <SubmitButton />
     </form>
