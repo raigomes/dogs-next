@@ -6,11 +6,19 @@ export type RequestConfig = {
 };
 
 export async function requestJSON<T>(config: RequestConfig): Promise<T | null> {
-  const response = await fetch(config.endpoint, {
+  const init: RequestInit = {
     method: config.method,
-    headers: config.headers,
-    body: config.body,
-  });
+  };
+
+  if (config.headers) {
+    init.headers = config.headers;
+  }
+
+  if (config.body !== undefined && config.body !== null) {
+    init.body = config.body;
+  }
+
+  const response = await fetch(config.endpoint, init);
 
   if (!response.ok) return null;
   return (await response.json()) as T;
