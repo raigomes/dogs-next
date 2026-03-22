@@ -1,4 +1,5 @@
 import React from "react";
+import type { Metadata } from "next";
 
 import LoginForm from "@/components/LoginForm";
 import Input from "@/components/Input";
@@ -9,6 +10,10 @@ import styles from "../Login.module.css";
 const labelBtn = {
   labelText: "Resetar Senha",
   labelLoading: "Resetando...",
+};
+
+export const metadata: Metadata = {
+  title: "Resetar a senha | Dogs",
 };
 
 export default async function PasswordResetPage({
