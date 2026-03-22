@@ -4,12 +4,7 @@ import { redirect } from "next/navigation";
 import { BASE_URL } from "./api";
 import { requestJSON } from "./request";
 import { cookies } from "next/headers";
-
-interface IToken {
-  token: string;
-}
-
-export type LoginState = { error: string | null };
+import type { IToken, LoginState } from "@/types/global";
 
 const TOKEN_POST = (username: string, password: string) =>
   ({
@@ -30,7 +25,8 @@ export async function login(_prevState: LoginState, formData: FormData) {
 
   const response = await requestJSON<IToken>(TOKEN_POST(username, password));
 
-  if (!response) return { error: "Senha ou usuário inválidos." };
+  if (!response)
+    return { data: null, ok: false, error: "Senha ou usuário inválidos." };
 
   cookies().set("token", response.token, {
     httpOnly: true,
@@ -39,5 +35,5 @@ export async function login(_prevState: LoginState, formData: FormData) {
 
   redirect("/conta");
 
-  return { error: "" };
+  return { data: response, ok: true, error: "" };
 }

@@ -3,31 +3,47 @@
 import React from "react";
 import { useFormState, useFormStatus } from "react-dom";
 
-import Input from "@/components/Input";
 import Button from "@/components/Button";
 import { login } from "@/actions/auth";
+import { LoginState } from "@/types/global";
 
-const SubmitButton = () => {
+interface IBtnLabel {
+  labelText: string;
+  labelLoading: string;
+}
+
+type LoginProps = Omit<React.FormHTMLAttributes<HTMLFormElement>, "action"> &
+  IBtnLabel & {
+    serverAction?: (
+      prevState: LoginState,
+      formData: FormData,
+    ) => Promise<LoginState>;
+    initialState?: LoginState;
+  };
+
+const SubmitButton = ({ labelLoading, labelText }: IBtnLabel) => {
   const { pending } = useFormStatus();
 
   return (
     <Button type="submit" disabled={pending}>
-      {pending ? "Entrando..." : "Entrar"}
+      {pending ? labelLoading : labelText}
     </Button>
   );
 };
 
-export default function LoginForm(
-  props: React.FormHTMLAttributes<HTMLFormElement>,
-) {
-  const [state, formAction] = useFormState(login, {
-    error: "",
-  });
+export default function LoginForm({
+  children,
+  labelText,
+  labelLoading,
+  serverAction = login,
+  initialState = { data: null, ok: false, error: "" },
+  ...props
+}: LoginProps) {
+  const [state, formAction] = useFormState(serverAction, initialState);
 
   return (
-    <form action={formAction} {...props}>
-      <Input label="Usuário" type="text" name="username" />
-      <Input label="Senha" type="password" name="password" />
+    <form {...props} action={formAction}>
+      {children}
 
       {state.error && (
         <p style={{ color: "rgb(255, 51, 17)", margin: "1rem 0px" }}>
@@ -35,7 +51,11 @@ export default function LoginForm(
         </p>
       )}
 
-      <SubmitButton />
+      {state.data && typeof state.data === "string" ? (
+        <p style={{ color: "rgb(68, 204, 17)" }}>{state.data}</p>
+      ) : (
+        <SubmitButton labelText={labelText} labelLoading={labelLoading} />
+      )}
     </form>
   );
 }

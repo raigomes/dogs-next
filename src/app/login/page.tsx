@@ -4,8 +4,15 @@ import type { Metadata } from "next";
 
 import LoginForm from "@/components/LoginForm";
 import Button from "@/components/Button";
+import Input from "@/components/Input";
+import { login } from "@/actions/auth";
 
 import styles from "./Login.module.css";
+
+const labelBtn = {
+  labelText: "Entrar",
+  labelLoading: "Entrando...",
+};
 
 export const metadata: Metadata = {
   title: "Login | Dogs",
@@ -18,7 +25,15 @@ export default function LoginPage() {
         <section className="animeLeft">
           <h1 className="title">Login</h1>
 
-          <LoginForm className={styles.form} />
+          <LoginForm
+            className={styles.form}
+            labelText={labelBtn.labelText}
+            labelLoading={labelBtn.labelLoading}
+            serverAction={login}
+          >
+            <Input label="Usuário" type="text" name="username" />
+            <Input label="Senha" type="password" name="password" />
+          </LoginForm>
 
           <Link href="/login/perdeu" className={styles.perdeu}>
             Perdeu a Senha?
