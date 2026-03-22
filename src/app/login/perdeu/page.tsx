@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 
 import LoginForm from "@/components/LoginForm";
 import Input from "@/components/Input";
-import { resetPassword } from "@/actions/password";
+import { lostPassword } from "@/actions/password";
 
 import styles from "../Login.module.css";
 
@@ -27,7 +27,7 @@ export default function PasswordLostPage() {
             className={styles.form}
             labelText={labelBtn.labelText}
             labelLoading={labelBtn.labelLoading}
-            serverAction={resetPassword}
+            serverAction={lostPassword}
           >
             <Input label="Email / Usuário" type="text" name="login" />
             <Input type="hidden" name="url" value="/login/resetar" />

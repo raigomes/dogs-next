@@ -31,20 +31,42 @@ const PASSWORD_RESET_POST = (login: string, password: string, key: string) =>
     }),
   }) as const;
 
-export async function resetPassword(
-  _prevState: LoginState,
-  formData: FormData,
-) {
+export async function lostPassword(_prevState: LoginState, formData: FormData) {
   const login = formData.get("login") as string;
   const url = formData.get("url") as string;
   const response = await requestJSON<string>(PASSWORD_LOST_POST(login, url));
-  console.log(response);
 
   if (!response)
     return {
       data: null,
       ok: false,
       error: "Email ou usuário não cadastrado.",
+    };
+
+  return {
+    data: response,
+    ok: true,
+    error: "",
+  };
+}
+
+export async function resetPassword(
+  _prevState: LoginState,
+  formData: FormData,
+) {
+  const password = formData.get("password") as string;
+  const login = formData.get("login") as string;
+  const key = formData.get("key") as string;
+
+  const response = await requestJSON<string>(
+    PASSWORD_RESET_POST(password, login, key),
+  );
+
+  if (!response)
+    return {
+      data: null,
+      ok: false,
+      error: "Usuário ou Key não encontrada.",
     };
 
   return {
