@@ -7,13 +7,14 @@ type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
 };
 
 const Input = ({ label, name, error, ...props }: InputProps) => {
+  if (!label)
+    return <input id={name} name={name} className={styles.input} {...props} />;
+
   return (
     <div className={styles.wrapper}>
-      {label && (
-        <label htmlFor={name} className={styles.label}>
-          {label}
-        </label>
-      )}
+      <label htmlFor={name} className={styles.label}>
+        {label}
+      </label>
       <input id={name} name={name} className={styles.input} {...props} />
       {error && <p className={styles.error}>{error}</p>}
     </div>
