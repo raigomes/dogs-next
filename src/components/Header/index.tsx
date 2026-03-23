@@ -2,10 +2,16 @@ import React from "react";
 
 import Link from "next/link";
 import Image from "next/image";
+import { cookies } from "next/headers";
+
+import { getUser } from "@/actions/user";
 
 import styles from "./Header.module.css";
 
-export default function Header() {
+export default async function Header() {
+  const token = cookies().get("token")?.value;
+  const user = token ? await getUser(token) : null;
+
   return (
     <header className={styles.header}>
       <nav className={`${styles.nav} container`}>
@@ -19,17 +25,17 @@ export default function Header() {
           />
         </Link>
 
-        {/* {loggedIn && (
-          <Link to="/conta" className={styles.login}>
-            {user}
+        {user && (
+          <Link href="/conta" className={styles.login}>
+            {user.username}
           </Link>
         )}
 
-        {!loggedIn && ( */}
-        <Link href="/login" className={styles.login}>
-          Login / Criar
-        </Link>
-        {/* )} */}
+        {!user && (
+          <Link href="/login" className={styles.login}>
+            Login / Criar
+          </Link>
+        )}
       </nav>
     </header>
   );

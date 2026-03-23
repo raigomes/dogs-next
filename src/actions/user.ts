@@ -6,6 +6,13 @@ import { requestJSON } from "./request";
 import { redirect } from "next/navigation";
 
 interface IUser {
+  email: string;
+  id: number;
+  nome: string;
+  username: string;
+}
+
+interface IUserError {
   code?: string;
   message?: string;
   data?: {
@@ -27,14 +34,14 @@ const USER_POST = (username: string, password: string, email: string) =>
     }),
   }) as const;
 
-// const USER_GET = (token: string) =>
-//   ({
-//     endpoint: BASE_URL + "/api/user",
-//     method: "POST",
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//     },
-//   }) as const;
+const USER_GET = (token: string) =>
+  ({
+    endpoint: BASE_URL + "/api/user",
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }) as const;
 
 export async function createUser(
   _prevState: LoginState,
@@ -44,7 +51,7 @@ export async function createUser(
   const password = formData.get("password") as string;
   const email = formData.get("email") as string;
 
-  const response = await requestJSON<IUser>(
+  const response = await requestJSON<IUserError>(
     USER_POST(username, password, email),
   );
 
@@ -62,4 +69,8 @@ export async function createUser(
     ok: true,
     error: "",
   };
+}
+
+export async function getUser(token: string) {
+  return await requestJSON<IUser>(USER_GET(token));
 }
