@@ -20,6 +20,6 @@ export async function requestJSON<T>(config: RequestConfig): Promise<T | null> {
 
   const response = await fetch(config.endpoint, init);
 
-  if (!response.ok) return null;
+  if (!response.ok) return (await response.json()) ?? null;
   return (await response.json()) as T;
 }
