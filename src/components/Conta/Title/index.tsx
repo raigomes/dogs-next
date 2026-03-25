@@ -14,7 +14,7 @@ export default function Title() {
         setTitle("Estatísticas");
         break;
       case "/conta/postar":
-        setTitle("Adicionar Foto");
+        setTitle("Poste Sua Foto");
         break;
       default:
         setTitle("Minha Conta");

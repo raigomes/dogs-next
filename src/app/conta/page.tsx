@@ -1,10 +1,15 @@
 import React from "react";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { cookies } from "next/headers";
 
 import Feed from "@/components/Feed";
 import { getUser } from "@/actions/user";
 import { getPhotos } from "@/actions/photo";
+
+export const metadata: Metadata = {
+  title: "Minha Conta | Dogs",
+};
 
 export default async function AccountPage() {
   const token = cookies().get("token")?.value ?? "";
