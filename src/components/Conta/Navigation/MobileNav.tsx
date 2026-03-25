@@ -3,7 +3,11 @@
 import React from "react";
 
 import Link from "next/link";
-import Image from "next/image";
+
+import AdicionarSVG from "/public/assets/adicionar.svg";
+import EstatisticasSVG from "/public/assets/estatisticas.svg";
+import DashboardSVG from "/public/assets/dashboard.svg";
+import SairSVG from "/public/assets/sair.svg";
 
 import styles from "../Conta.module.css";
 
@@ -22,34 +26,19 @@ export default function MobileNav() {
         className={`${styles.navMobile} ${active ? styles.navMobileActive : false}`}
       >
         <Link href="/conta">
-          <Image
-            src="/assets/dashboard.svg"
-            alt="Dashboard"
-            width={24}
-            height={24}
-          />
+          <DashboardSVG />
           Minhas Fotos
         </Link>
         <Link href="/conta/estatisticas">
-          <Image
-            src="/assets/estatisticas.svg"
-            alt="Estatísticas"
-            width={24}
-            height={24}
-          />
+          <EstatisticasSVG />
           Estatísticas
         </Link>
         <Link href="/conta/postar">
-          <Image
-            src="/assets/adicionar.svg"
-            alt="Adicionar Foto"
-            width={24}
-            height={24}
-          />
+          <AdicionarSVG />
           Adicionar Foto
         </Link>
         <button>
-          <Image src="/assets/sair.svg" alt="Sair" width={24} height={24} />
+          <SairSVG />
           Sair
         </button>
       </nav>

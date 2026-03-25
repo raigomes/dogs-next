@@ -1,39 +1,54 @@
+"use client";
+
 import React from "react";
 
 import Link from "next/link";
-import Image from "next/image";
+import { usePathname } from "next/navigation";
+
+import AdicionarSVG from "/public/assets/adicionar.svg";
+import EstatisticasSVG from "/public/assets/estatisticas.svg";
+import DashboardSVG from "/public/assets/dashboard.svg";
+import SairSVG from "/public/assets/sair.svg";
 
 import styles from "../Conta.module.css";
 
 export default function DesktopNav() {
+  const [active, setActive] = React.useState<string>("Conta");
+  const pathname = usePathname();
+
+  React.useEffect(() => {
+    switch (pathname) {
+      case "/conta/estatisticas":
+        setActive("Estatisticas");
+        break;
+      case "/conta/postar":
+        setActive("Postar");
+        break;
+      default:
+        setActive("Conta");
+        break;
+    }
+  }, [pathname]);
+
   return (
     <nav className={styles.nav}>
-      <Link href="/conta">
-        <Image
-          src="/assets/dashboard.svg"
-          alt="Dashboard"
-          width={24}
-          height={24}
-        />
+      <Link href="/conta" className={active === "Conta" ? "active" : ""}>
+        <DashboardSVG />
       </Link>
-      <Link href="/conta/estatisticas">
-        <Image
-          src="/assets/estatisticas.svg"
-          alt="Estatísticas"
-          width={24}
-          height={24}
-        />
+      <Link
+        href="/conta/estatisticas"
+        className={active === "Estatisticas" ? "active" : ""}
+      >
+        <EstatisticasSVG />
       </Link>
-      <Link href="/conta/postar">
-        <Image
-          src="/assets/adicionar.svg"
-          alt="Adicionar Foto"
-          width={24}
-          height={24}
-        />
+      <Link
+        href="/conta/postar"
+        className={active === "Postar" ? "active" : ""}
+      >
+        <AdicionarSVG />
       </Link>
       <button>
-        <Image src="/assets/sair.svg" alt="Sair" width={24} height={24} />
+        <SairSVG />
       </button>
     </nav>
   );
