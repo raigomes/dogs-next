@@ -22,7 +22,6 @@
 .nav button {
   background: #eee;
   border-radius: 0.2rem;
-  font-size: 0;
   height: 40px;
   width: 40px;
   display: flex;
@@ -41,6 +40,86 @@
 
 .nav :global(a.active) svg > * {
   fill: #fb1;
+}
+
+.photoPost {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.wrapper {
+  margin-bottom: 1rem;
+}
+
+.label {
+  display: block;
+  font-size: 1rem;
+  line-height: 1;
+  padding-bottom: 0.5rem;
+}
+
+.input {
+  border: 1px solid #eee;
+  display: block;
+  width: 100%;
+  font-size: 1rem;
+  padding: 0.8rem;
+  border-radius: 0.4rem;
+  background: #eee;
+  transition: 0.2s;
+}
+
+.file {
+  margin-bottom: 1rem;
+}
+
+.button {
+  font-size: 1rem;
+  font-family: var(--type-first);
+  cursor: pointer;
+  border: none;
+  border-radius: 0.4rem;
+  background: #fb1;
+  color: #764701;
+  min-width: 8rem;
+  padding: 0.8rem 1.2rem;
+  box-sizing: border-box;
+  transition: 0.1s;
+}
+
+.preview {
+  border-radius: 1rem;
+  background-size: cover;
+  background-position: center center;
+}
+
+.preview:after {
+  content: "";
+  display: block;
+  height: 0px;
+  padding-bottom: 100%;
+}
+
+.graph {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.graphItem {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 20px;
+  border-radius: 0.2rem;
+  display: grid;
+  align-items: center;
+}
+
+.total {
+  grid-column: 1 / 3;
+  padding: 2rem;
+  font-size: 2rem;
 }
 
 .mobileButton {

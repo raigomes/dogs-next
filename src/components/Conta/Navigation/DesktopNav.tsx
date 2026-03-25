@@ -15,7 +15,6 @@ export default function DesktopNav() {
           width={24}
           height={24}
         />
-        Minhas Fotos
       </Link>
       <Link href="/conta/estatisticas">
         <Image
@@ -24,7 +23,6 @@ export default function DesktopNav() {
           width={24}
           height={24}
         />
-        Estatísticas
       </Link>
       <Link href="/conta/postar">
         <Image
@@ -33,11 +31,9 @@ export default function DesktopNav() {
           width={24}
           height={24}
         />
-        Adicionar Foto
       </Link>
       <button>
         <Image src="/assets/sair.svg" alt="Sair" width={24} height={24} />
-        Sair
       </button>
     </nav>
   );
