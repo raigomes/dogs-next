@@ -20,6 +20,8 @@ interface IUserError {
   };
 }
 
+const emptyUser: IUser = { email: "", username: "", nome: "", id: 0 };
+
 const USER_POST = (username: string, password: string, email: string) =>
   ({
     endpoint: BASE_URL + "/api/user",
@@ -71,6 +73,7 @@ export async function createUser(
   };
 }
 
-export async function getUser(token: string) {
-  return await requestJSON<IUser>(USER_GET(token));
+export async function getUser(token: string): Promise<IUser> {
+  if (!token) return emptyUser;
+  return (await requestJSON<IUser>(USER_GET(token))) ?? emptyUser;
 }

@@ -11,9 +11,10 @@ import styles from "./Feed.module.css";
 
 interface FeedProps {
   initialPhotos?: IPhoto[];
+  user?: number;
 }
 
-export default function Feed({ initialPhotos = [] }: FeedProps) {
+export default function Feed({ initialPhotos = [], user = 0 }: FeedProps) {
   const [photos, setPhotos] = React.useState<IPhoto[]>(initialPhotos);
   const [page, setPage] = React.useState(2);
   const [hasMore, setHasMore] = React.useState(true);
@@ -23,25 +24,25 @@ export default function Feed({ initialPhotos = [] }: FeedProps) {
   });
 
   React.useEffect(() => {
+    async function loadPhotos() {
+      const data = await getPhotos({
+        total: 6,
+        user,
+        page,
+      });
+
+      if (!data || data?.length === 0) {
+        setHasMore(false);
+      } else {
+        setPhotos((prev) => prev && [...prev, ...data]);
+        setPage((prev) => prev + 1);
+      }
+    }
+
     if (inView && hasMore) {
       loadPhotos();
     }
-  }, [inView]);
-
-  const loadPhotos = async () => {
-    const data = await getPhotos({
-      total: 6,
-      user: 0,
-      page,
-    });
-
-    if (!data || data?.length === 0) {
-      setHasMore(false);
-    } else {
-      setPhotos((prev) => prev && [...prev, ...data]);
-      setPage((prev) => prev + 1);
-    }
-  };
+  }, [inView, hasMore, user, page]);
 
   if (photos.length === 0) return null;
 

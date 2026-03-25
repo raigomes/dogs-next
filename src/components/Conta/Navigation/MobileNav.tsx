@@ -1,0 +1,58 @@
+"use client";
+
+import React from "react";
+
+import Link from "next/link";
+import Image from "next/image";
+
+import styles from "../Conta.module.css";
+
+export default function MobileNav() {
+  const [active, setActive] = React.useState(false);
+
+  return (
+    <>
+      <button
+        aria-label="Menu"
+        className={`${styles.mobileButton} ${active ? styles.mobileButtonActive : false}`}
+        onClick={() => setActive(!active)}
+      ></button>
+
+      <nav
+        className={`${styles.navMobile} ${active ? styles.navMobileActive : false}`}
+      >
+        <Link href="/conta">
+          <Image
+            src="/assets/dashboard.svg"
+            alt="Dashboard"
+            width={24}
+            height={24}
+          />
+          Minhas Fotos
+        </Link>
+        <Link href="/conta/estatisticas">
+          <Image
+            src="/assets/estatisticas.svg"
+            alt="Estatísticas"
+            width={24}
+            height={24}
+          />
+          Estatísticas
+        </Link>
+        <Link href="/conta/postar">
+          <Image
+            src="/assets/adicionar.svg"
+            alt="Adicionar Foto"
+            width={24}
+            height={24}
+          />
+          Adicionar Foto
+        </Link>
+        <button>
+          <Image src="/assets/sair.svg" alt="Sair" width={24} height={24} />
+          Sair
+        </button>
+      </nav>
+    </>
+  );
+}
