@@ -11,8 +11,6 @@ export default async function AccountPage() {
   const { id } = await getUser(token);
   const photos = await getPhotos({ total: 6, user: id, page: 1 });
 
-  console.log(photos, id, token);
-
   if (!photos || photos.length === 0)
     return (
       <div>
