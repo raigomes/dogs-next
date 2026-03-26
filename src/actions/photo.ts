@@ -5,18 +5,7 @@ import { redirect } from "next/navigation";
 
 import { BASE_URL } from "./api";
 import { requestJSON } from "./request";
-import { IError, FormState } from "@/types/global";
-
-interface IPhoto {
-  id: number;
-  author: string;
-  title: string;
-  date: string;
-  src: string;
-  peso: string;
-  idade: string;
-  acessos: number;
-}
+import { IError, FormState, IPhoto } from "@/types/global";
 
 interface IPhotoQuery {
   total?: number;

@@ -4,7 +4,9 @@ import React from "react";
 import { useInView } from "react-intersection-observer";
 import Image from "next/image";
 
-import { getPhotos, IPhoto } from "@/actions/photo";
+import { getPhotos } from "@/actions/photo";
+import { IPhoto } from "@/types/global";
+
 import FeedLoading from "./FeedLoading";
 
 import styles from "./Feed.module.css";
