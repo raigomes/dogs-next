@@ -4,6 +4,7 @@ import React from "react";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { logout } from "@/actions/auth";
 
 import AdicionarSVG from "/public/assets/adicionar.svg";
 import EstatisticasSVG from "/public/assets/estatisticas.svg";
@@ -30,6 +31,10 @@ export default function DesktopNav() {
     }
   }, [pathname]);
 
+  async function sair() {
+    await logout();
+  }
+
   return (
     <nav className={styles.nav}>
       <Link href="/conta" className={active === "Conta" ? "active" : ""}>
@@ -47,7 +52,7 @@ export default function DesktopNav() {
       >
         <AdicionarSVG />
       </Link>
-      <button>
+      <button onClick={sair}>
         <SairSVG />
       </button>
     </nav>

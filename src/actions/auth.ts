@@ -44,3 +44,8 @@ export async function login(
 
   return { data: JSON.stringify(response) ?? null, ok: true, error: "" };
 }
+
+export async function logout() {
+  cookies().delete("token");
+  redirect("/");
+}

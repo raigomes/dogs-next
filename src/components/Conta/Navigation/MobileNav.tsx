@@ -3,6 +3,7 @@
 import React from "react";
 
 import Link from "next/link";
+import { logout } from "@/actions/auth";
 
 import AdicionarSVG from "/public/assets/adicionar.svg";
 import EstatisticasSVG from "/public/assets/estatisticas.svg";
@@ -13,6 +14,10 @@ import styles from "../Conta.module.css";
 
 export default function MobileNav() {
   const [active, setActive] = React.useState(false);
+
+  async function sair() {
+    await logout();
+  }
 
   return (
     <>
@@ -37,7 +42,7 @@ export default function MobileNav() {
           <AdicionarSVG />
           Adicionar Foto
         </Link>
-        <button>
+        <button onClick={sair}>
           <SairSVG />
           Sair
         </button>
