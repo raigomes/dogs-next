@@ -6,7 +6,7 @@ const nextConfig = {
         protocol: "https",
         hostname: "dogsapi.origamid.dev",
         port: "",
-        pathname: "/wp-content/uploads/**",
+        pathname: "/**/**",
         search: "",
       },
     ],
