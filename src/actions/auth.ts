@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { BASE_URL } from "./api";
 import { requestJSON } from "./request";
 import { cookies } from "next/headers";
-import type { LoginState } from "@/types/global";
+import type { FormState } from "@/types/global";
 
 interface IToken {
   token: string;
@@ -24,9 +24,9 @@ const TOKEN_POST = (username: string, password: string) =>
   }) as const;
 
 export async function login(
-  _prevState: LoginState,
+  _prevState: FormState,
   formData: FormData,
-): Promise<LoginState> {
+): Promise<FormState> {
   const username = formData.get("username") as string;
   const password = formData.get("password") as string;
 

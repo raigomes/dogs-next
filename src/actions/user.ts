@@ -1,7 +1,7 @@
 "use server";
 
 import { BASE_URL } from "./api";
-import type { LoginState } from "@/types/global";
+import type { IError, FormState } from "@/types/global";
 import { requestJSON } from "./request";
 import { redirect } from "next/navigation";
 
@@ -10,14 +10,6 @@ interface IUser {
   id: number;
   nome: string;
   username: string;
-}
-
-interface IUserError {
-  code?: string;
-  message?: string;
-  data?: {
-    status?: number;
-  };
 }
 
 const emptyUser: IUser = { email: "", username: "", nome: "", id: 0 };
@@ -46,14 +38,14 @@ const USER_GET = (token: string) =>
   }) as const;
 
 export async function createUser(
-  _prevState: LoginState,
+  _prevState: FormState,
   formData: FormData,
-): Promise<LoginState> {
+): Promise<FormState> {
   const username = formData.get("username") as string;
   const password = formData.get("password") as string;
   const email = formData.get("email") as string;
 
-  const response = await requestJSON<IUserError>(
+  const response = await requestJSON<IError>(
     USER_POST(username, password, email),
   );
 

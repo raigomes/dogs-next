@@ -5,7 +5,7 @@ import { useFormState, useFormStatus } from "react-dom";
 
 import Button from "@/components/Button";
 import { login } from "@/actions/auth";
-import { LoginState } from "@/types/global";
+import { FormState } from "@/types/global";
 
 interface IBtnLabel {
   labelText: string;
@@ -15,10 +15,10 @@ interface IBtnLabel {
 type LoginProps = Omit<React.FormHTMLAttributes<HTMLFormElement>, "action"> &
   IBtnLabel & {
     serverAction?: (
-      prevState: LoginState,
+      prevState: FormState,
       formData: FormData,
-    ) => Promise<LoginState>;
-    initialState?: LoginState;
+    ) => Promise<FormState>;
+    initialState?: FormState;
   };
 
 const SubmitButton = ({ labelLoading, labelText }: IBtnLabel) => {
