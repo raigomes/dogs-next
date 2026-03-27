@@ -1,6 +1,6 @@
 # Dogs Next
 
-Rede Social de Cachorros (https://dogs-origamid-raigomes.vercel.app/).
+Rede Social de Cachorros (https://dogs-next-raigomes.vercel.app/).
 
 Projeto Final do curso Next.js da Origamid.
 
