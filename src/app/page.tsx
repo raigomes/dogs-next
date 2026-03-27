@@ -1,6 +1,8 @@
 import { getPhotos } from "@/actions/photo";
 import Feed from "@/components/Feed";
 
+export const revalidate = 300;
+
 export default async function Home() {
   const photos = await getPhotos();
 

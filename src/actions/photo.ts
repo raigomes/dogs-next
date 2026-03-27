@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import { BASE_URL } from "./api";
 import { requestJSON } from "./request";
 import { IError, FormState, IPhoto } from "@/types/global";
+import { revalidatePath } from "next/cache";
 
 interface IPhotoQuery {
   total?: number;
@@ -78,6 +79,7 @@ export async function postPhoto(
       error: response?.message ?? "Dados incorretos",
     };
 
+  revalidatePath("/");
   redirect("/conta");
 
   return {
