@@ -26,3 +26,9 @@ export interface IError {
     status?: number;
   };
 }
+
+export interface IPhotoStats {
+  id: number;
+  title: string;
+  acessos: number;
+}

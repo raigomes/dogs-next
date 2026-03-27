@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { BASE_URL } from "./api";
 import { requestJSON } from "./request";
 import { cookies } from "next/headers";
-import type { FormState } from "@/types/global";
+import type { FormState, IError } from "@/types/global";
 
 interface IToken {
   token: string;
@@ -21,6 +21,15 @@ const TOKEN_POST = (username: string, password: string) =>
       username,
       password,
     }),
+  }) as const;
+
+const TOKEN_VALIDATE_POST = (token: string) =>
+  ({
+    endpoint: BASE_URL + "/jwt-auth/v1/token/validate",
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   }) as const;
 
 export async function login(
@@ -48,4 +57,9 @@ export async function login(
 export async function logout() {
   cookies().delete("token");
   redirect("/");
+}
+
+export async function validateToken(token: string) {
+  const response = await requestJSON<IError>(TOKEN_VALIDATE_POST(token));
+  return response?.data?.status === 200;
 }
