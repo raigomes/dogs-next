@@ -1,4 +1,4 @@
-# Dogs
+# Dogs Next
 
 Rede Social de Cachorros (https://dogs-origamid-raigomes.vercel.app/).
 
