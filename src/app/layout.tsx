@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Spectral } from "next/font/google";
+import { spectral_font } from "./fonts";
 
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -11,13 +11,6 @@ export const metadata: Metadata = {
   description:
     "Dogs - Rede social para cachorros feita com Next.js 14 e Typescript",
 };
-
-export const spectral_font = Spectral({
-  weight: ["700"],
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--spectral-font",
-});
 
 export default function RootLayout({
   children,
