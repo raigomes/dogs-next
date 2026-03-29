@@ -9,6 +9,13 @@ const nextConfig = {
         pathname: "/**/**",
         search: "",
       },
+      {
+        protocol: "https",
+        hostname: "place.dog",
+        port: "",
+        pathname: "/**/**",
+        search: "",
+      },
     ],
   },
   webpack(config) {
