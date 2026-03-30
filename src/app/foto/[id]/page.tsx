@@ -1,5 +1,5 @@
 import React from "react";
-import Link from "next/link";
+import { notFound } from "next/navigation";
 
 import { Photo } from "@/components/Photo";
 import { getPhotoById } from "@/actions/photo";
@@ -13,20 +13,7 @@ interface PhotoProps {
 export default async function PhotoPage({ params }: PhotoProps) {
   const { photo, comments = [] } = (await getPhotoById(params.id)) ?? {};
 
-  if (!photo) {
-    return (
-      <section className="container mainContainer">
-        <h1 className="title">Página não encontrada</h1>
-        <Link
-          href="/"
-          className="button"
-          style={{ marginBottom: "1rem", display: "inline-block" }}
-        >
-          Voltar para a Home
-        </Link>
-      </section>
-    );
-  }
+  if (!photo) return notFound();
 
   return (
     <section className="container mainContainer">
