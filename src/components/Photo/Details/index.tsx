@@ -1,20 +1,10 @@
 import React from "react";
 import Link from "next/link";
 
+import { IPhoto } from "@/types/global";
 import styles from "../Photo.module.css";
 
-export default function Details() {
-  const data = {
-    id: 1,
-    title: "Pug",
-    author: "luan",
-    comments: 2,
-    description: "Pug",
-    idade: 2,
-    peso: 2,
-    acessos: 2,
-  };
-
+export default function Details({ data }: { data: IPhoto }) {
   return (
     <div className={styles.details}>
       <p className={styles.author}>

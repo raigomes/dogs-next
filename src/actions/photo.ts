@@ -5,13 +5,18 @@ import { redirect } from "next/navigation";
 
 import { BASE_URL } from "./api";
 import { requestJSON } from "./request";
-import { IError, FormState, IPhoto } from "@/types/global";
+import { IError, FormState, IPhoto, IComment } from "@/types/global";
 import { revalidatePath } from "next/cache";
 
 interface IPhotoQuery {
   total?: number;
   page?: number;
   user?: number;
+}
+
+interface IPhotoWithComments {
+  photo: IPhoto;
+  comments: IComment[];
 }
 
 const PHOTO_GET = (query: IPhotoQuery = {}) => {
@@ -62,7 +67,7 @@ export async function getPhotos(query: IPhotoQuery = {}) {
 }
 
 export async function getPhotoById(id: number | string) {
-  return await requestJSON<IPhoto>(PHOTO_BY_ID_GET(id));
+  return await requestJSON<IPhotoWithComments>(PHOTO_BY_ID_GET(id));
 }
 
 export async function postPhoto(

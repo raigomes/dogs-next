@@ -2,27 +2,10 @@ import React from "react";
 
 import CommentSVG from "/public/assets/comment.svg";
 
+import { IComment } from "@/types/global";
 import styles from "../Photo.module.css";
 
-export default function Comments() {
-  const comments = [
-    {
-      comment_ID: 1,
-      comment_author: "Fulano",
-      comment_content: "Comentario 1",
-    },
-    {
-      comment_ID: 2,
-      comment_author: "Fulano",
-      comment_content: "Comentario 2",
-    },
-    {
-      comment_ID: 3,
-      comment_author: "Fulano",
-      comment_content: "Comentario 3",
-    },
-  ];
-
+export default function Comments({ comments }: { comments: IComment[] }) {
   const loggedIn = true;
 
   return (
