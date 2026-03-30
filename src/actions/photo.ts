@@ -94,6 +94,23 @@ export async function postPhoto(
   };
 }
 
-export async function deletePhoto(token: string, id: number | string) {
-  return await requestJSON<IPhoto>(PHOTO_DELETE(token, id));
+export async function deletePhoto(id: number | string): Promise<FormState> {
+  const token = cookies().get("token")?.value ?? "";
+  const response = await requestJSON<IError>(PHOTO_DELETE(token, id));
+
+  if (!response)
+    return {
+      data: null,
+      ok: false,
+      error: "Foto não deletada.",
+    };
+
+  revalidatePath("/");
+  redirect("/");
+
+  return {
+    data: JSON.stringify(response) ?? null,
+    ok: true,
+    error: "",
+  };
 }

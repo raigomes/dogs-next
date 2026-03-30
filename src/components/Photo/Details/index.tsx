@@ -1,21 +1,25 @@
 import React from "react";
 import Link from "next/link";
+import { cookies } from "next/headers";
 
+import { getUser } from "@/actions/user";
 import { IPhoto } from "@/types/global";
-import styles from "../Photo.module.css";
 
-export default function Details({ data }: { data: IPhoto }) {
+import styles from "../Photo.module.css";
+import DeleteButton from "./DeleteButton";
+
+export default async function Details({ data }: { data: IPhoto }) {
+  const token = cookies().get("token")?.value ?? "";
+  const { nome } = await getUser(token);
+  const isUserPhoto = data.author === nome;
+
   return (
     <div className={styles.details}>
       <p className={styles.author}>
-        {/* {!isUserPhoto && ( */}
-        <Link href={`/perfil/${data.author}`}>@{data.author}</Link>
-        {/* )}
-        {isUserPhoto && (
-          <button className={styles.delete} onClick={handleDelete}>
-            Deletar
-          </button>
-        )} */}
+        {!isUserPhoto && (
+          <Link href={`/perfil/${data.author}`}>@{data.author}</Link>
+        )}
+        {isUserPhoto && <DeleteButton id={data.id} />}
         <span className={styles.visualizacoes}>{data.acessos}</span>
       </p>
       <h1 className="title">
