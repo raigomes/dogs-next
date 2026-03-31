@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import { useFormState } from "react-dom";
 
 import Input from "@/components/Input";
@@ -9,21 +9,23 @@ import { postComment } from "@/actions/comments";
 import CommentSVG from "/public/assets/comment.svg";
 import styles from "../Photo.module.css";
 
-export default function CommentForm({
-  id,
-  token,
-}: {
-  id: number | string;
-  token: string;
-}) {
+export default function CommentForm({ id }: { id: number | string }) {
   const [state, formAction] = useFormState(postComment, {
     data: null,
     ok: false,
     error: "",
   });
+  const formRef = useRef<HTMLFormElement>(null);
 
   return (
-    <form className={styles.form} action={formAction}>
+    <form
+      ref={formRef}
+      className={styles.form}
+      action={async (formData) => {
+        await formAction(formData);
+        formRef.current?.reset();
+      }}
+    >
       <textarea
         className={styles.textarea}
         id="comment"
@@ -31,7 +33,6 @@ export default function CommentForm({
         placeholder="Comente..."
       />
       <Input type="hidden" name="id" value={id} />
-      <Input type="hidden" name="token" value={token} />
 
       {state.error && (
         <p style={{ color: "rgb(255, 51, 17)", margin: "1rem 0px" }}>

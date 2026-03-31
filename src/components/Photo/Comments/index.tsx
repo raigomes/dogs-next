@@ -27,7 +27,7 @@ export default async function Comments({
           </li>
         ))}
       </ul>
-      {loggedIn && <CommentForm id={id} token={token} />}
+      {loggedIn && <CommentForm id={id} />}
     </>
   );
 }
