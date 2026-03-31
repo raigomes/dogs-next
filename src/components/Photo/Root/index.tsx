@@ -4,12 +4,12 @@ import styles from "../Photo.module.css";
 
 interface RootProps {
   children: React.ReactNode;
-  id?: string;
+  single: boolean;
 }
 
-export default function Root({ children, id }: RootProps) {
+export default function Root({ children, single }: RootProps) {
   return (
-    <div className={`${styles.photo} ${id ? styles.single : ""}`}>
+    <div className={`${styles.photo} ${single ? styles.single : ""}`}>
       {children}
     </div>
   );

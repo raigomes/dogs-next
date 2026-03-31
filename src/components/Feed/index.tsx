@@ -2,6 +2,7 @@
 
 import React from "react";
 import { useInView } from "react-intersection-observer";
+import Link from "next/link";
 import Image from "next/image";
 
 import { getPhotos } from "@/actions/photo";
@@ -53,7 +54,7 @@ export default function Feed({ initialPhotos = [], user = 0 }: FeedProps) {
       <ul className={`${styles.feed} animeLeft`}>
         {photos.map((photo) => (
           <li key={photo.id} className={styles.photo}>
-            <div className={styles.wrapper}>
+            <Link href={`/foto/${photo.id}`} className={styles.wrapper}>
               <Image
                 src={photo.src}
                 alt={photo.title}
@@ -61,8 +62,8 @@ export default function Feed({ initialPhotos = [], user = 0 }: FeedProps) {
                 width={507}
                 height={507}
               />
-            </div>
-            <span className={styles.visualizacao}>{photo.acessos}</span>
+              <span className={styles.visualizacao}>{photo.acessos}</span>
+            </Link>
           </li>
         ))}
       </ul>

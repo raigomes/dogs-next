@@ -21,17 +21,9 @@ export async function generateMetadata({ params }: PhotoProps) {
   };
 }
 export default async function PhotoPage({ params }: PhotoProps) {
-  const { photo, comments = [] } = (await getPhotoById(params.id)) ?? {};
-
-  if (!photo) return notFound();
-
   return (
     <section className="container mainContainer">
-      <Photo.Root id={params.id}>
-        <Photo.Image {...photo} />
-        <Photo.Details data={photo} />
-        <Photo.Comments comments={comments} id={params.id} />
-      </Photo.Root>
+      <Photo.PageContent id={params.id} single={true} />
     </section>
   );
 }
