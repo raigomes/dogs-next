@@ -1,12 +1,21 @@
 import React from "react";
+import { cookies } from "next/headers";
 
-import CommentSVG from "/public/assets/comment.svg";
-
+import { validateToken } from "@/actions/auth";
 import { IComment } from "@/types/global";
+
+import CommentForm from "./CommentForm";
 import styles from "../Photo.module.css";
 
-export default function Comments({ comments }: { comments: IComment[] }) {
-  const loggedIn = true;
+export default async function Comments({
+  comments,
+  id,
+}: {
+  comments: IComment[];
+  id: number | string;
+}) {
+  const token = cookies().get("token")?.value ?? "";
+  const loggedIn = await validateToken(token);
 
   return (
     <>
@@ -18,22 +27,7 @@ export default function Comments({ comments }: { comments: IComment[] }) {
           </li>
         ))}
       </ul>
-      {loggedIn && (
-        <form className={styles.form}>
-          <textarea
-            className={styles.textarea}
-            id="comment"
-            name="comment"
-            placeholder="Comente..."
-            // value={textComment}
-            // onChange={(e) => setTextComment(e.target.value)}
-          />
-          <button className={styles.button}>
-            <CommentSVG />
-          </button>
-          {/* {message} */}
-        </form>
-      )}
+      {loggedIn && <CommentForm id={id} token={token} />}
     </>
   );
 }

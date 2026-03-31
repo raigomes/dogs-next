@@ -1,3 +1,5 @@
+"use server";
+
 import { IPhotoStats } from "@/types/global";
 import { BASE_URL } from "./api";
 import { requestJSON } from "./request";
