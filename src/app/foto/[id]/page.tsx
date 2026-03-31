@@ -1,5 +1,4 @@
 import React from "react";
-import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { Photo } from "@/components/Photo";
@@ -11,10 +10,16 @@ interface PhotoProps {
   };
 }
 
-export const metadata: Metadata = {
-  title: "Foto | Dogs",
-};
+export async function generateMetadata({ params }: PhotoProps) {
+  const { photo } = (await getPhotoById(params.id)) ?? {};
 
+  if (!photo) return notFound();
+
+  return {
+    title: photo.title,
+    description: photo.title + " | Dogs",
+  };
+}
 export default async function PhotoPage({ params }: PhotoProps) {
   const { photo, comments = [] } = (await getPhotoById(params.id)) ?? {};
 
