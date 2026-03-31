@@ -7,10 +7,12 @@ import { cookies } from "next/headers";
 import { getUser } from "@/actions/user";
 
 import styles from "./Header.module.css";
+import { validateToken } from "@/actions/auth";
 
 export default async function Header() {
-  const token = cookies().get("token")?.value;
-  const user = token ? await getUser(token) : null;
+  const token = cookies().get("token")?.value ?? "";
+  const loggedIn = token ? await validateToken(token) : false;
+  const user = loggedIn ? await getUser(token) : null;
 
   return (
     <header className={styles.header}>
