@@ -3,6 +3,9 @@ export type RequestConfig = {
   method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
   headers?: HeadersInit;
   body?: BodyInit | null;
+  next?: {
+    tags?: string[];
+  };
 };
 
 export async function requestJSON<T>(config: RequestConfig): Promise<T | null> {
@@ -16,6 +19,10 @@ export async function requestJSON<T>(config: RequestConfig): Promise<T | null> {
 
   if (config.body !== undefined && config.body !== null) {
     init.body = config.body;
+  }
+
+  if (config.next) {
+    init.next = config.next;
   }
 
   const response = await fetch(config.endpoint, init);

@@ -6,12 +6,12 @@ import { redirect } from "next/navigation";
 import { BASE_URL } from "./api";
 import { requestJSON } from "./request";
 import { IError, FormState, IPhoto, IComment } from "@/types/global";
-import { revalidatePath } from "next/cache";
+import { revalidateTag } from "next/cache";
 
 interface IPhotoQuery {
   total?: number;
   page?: number;
-  user?: number;
+  user?: number | string;
 }
 
 interface IPhotoWithComments {
@@ -34,6 +34,9 @@ const PHOTO_GET = (query: IPhotoQuery = {}) => {
   return {
     endpoint,
     method: "GET",
+    next: {
+      tags: ["photos"] as string[],
+    },
   } as const;
 };
 
@@ -41,6 +44,9 @@ const PHOTO_BY_ID_GET = (id: number | string) =>
   ({
     endpoint: `${BASE_URL}/api/photo/${id}`,
     method: "GET",
+    next: {
+      tags: ["photos"] as string[],
+    },
   }) as const;
 
 const PHOTO_POST = (token: string, formData: FormData) =>
@@ -84,7 +90,7 @@ export async function postPhoto(
       error: response?.message ?? "Dados incorretos",
     };
 
-  revalidatePath("/");
+  revalidateTag("photos");
   redirect("/conta");
 
   return {
@@ -105,7 +111,7 @@ export async function deletePhoto(id: number | string): Promise<FormState> {
       error: "Foto não deletada.",
     };
 
-  revalidatePath("/");
+  revalidateTag("photos");
 
   return {
     data: JSON.stringify(response) ?? null,
