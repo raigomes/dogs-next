@@ -106,7 +106,6 @@ export async function deletePhoto(id: number | string): Promise<FormState> {
     };
 
   revalidatePath("/");
-  redirect("/");
 
   return {
     data: JSON.stringify(response) ?? null,
