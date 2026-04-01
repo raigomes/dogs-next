@@ -14,7 +14,7 @@ import styles from "./Feed.module.css";
 
 interface FeedProps {
   initialPhotos?: IPhoto[];
-  user?: number;
+  user?: number | string;
 }
 
 export default function Feed({ initialPhotos = [], user = 0 }: FeedProps) {
